@@ -22,10 +22,14 @@ export class SignalRService {
     this.hubConnection.start().then(() => {
       console.log('Hub connection started ...');
       if (this.hubConnection.state) {
+
+
+        // wait for receive data
         this.hubConnection.on('transferchartdata', (response) => {
           this.data = response;
           console.log(this.data);
         });
+
       } else {
         console.warn('Cannot add listener. connection state is ' + this.hubConnection.state);
       }
