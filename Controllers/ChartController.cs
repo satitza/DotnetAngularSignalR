@@ -20,10 +20,17 @@ namespace DotnetAngularSignalR.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var timerManager =
-                new TimerManager(() => _hub.Clients.All.SendAsync("transferchartdata", DataManager.GetData()));
+            /*var timerManager =
+                new TimerManager(() => _hub.Clients.All.SendAsync("transferchartdata", DataManager.GetData()));*/
 
             return Ok(new {Message = "Request Completed. Start send data to hub client."});
+        }
+
+        [HttpGet("notify")]
+        public IActionResult SendNotify()
+        {
+            _hub.Clients.All.SendAsync("transferchartdata", DataManager.GetData());
+            return Ok("notify success.");
         }
     }
 }
